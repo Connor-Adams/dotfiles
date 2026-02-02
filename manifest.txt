@@ -1,0 +1,5 @@
+zsh/zshrc                      ~/.zshrc
+zsh/conf.d                     ~/.config/zsh/conf.d
+git/gitconfig                  ~/.gitconfig
+git/gitignore_global           ~/.gitignore_global
+config/direnv/direnvrc         ~/.config/direnv/direnvrc

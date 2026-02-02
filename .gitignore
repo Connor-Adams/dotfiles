@@ -1,0 +1,4 @@
+# Never commit secrets/local-only overrides
+zsh/conf.d/90-local.zsh
+**/*.env
+.DS_Store

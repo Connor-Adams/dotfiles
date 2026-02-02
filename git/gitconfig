@@ -1,0 +1,19 @@
+[user]
+  name = Connor Adams
+  email = connor.adams@uoit.net
+
+[core]
+  excludesfile = ~/.gitignore_global
+  autocrlf = input
+
+[init]
+  defaultBranch = main
+
+[pull]
+  rebase = false
+
+[fetch]
+  prune = true
+
+[push]
+  default = simple
