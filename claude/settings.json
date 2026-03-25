@@ -1,0 +1,167 @@
+{
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "mcp__kindex__*",
+      "mcp__serena__*",
+      "mcp__constrain__*",
+      "mcp__claude_ai_Slack__*",
+      "mcp__claude_ai_Linear__*",
+      "mcp__claude_ai_Figma__*",
+      "mcp__claude_ai_Amplitude__*",
+      "mcp__grafana__*",
+      "mcp__sentry__*",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(git:*)",
+      "Bash(pnpm:*)",
+      "Bash(yarn:*)",
+      "Bash(node:*)",
+      "Bash(npx:*)",
+      "Bash(gh:*)",
+      "Bash(doppler:*)",
+      "Bash(claude mcp:*)",
+      "Bash(echo:*)",
+      "Bash(test:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(which:*)",
+      "Bash(pwd:*)",
+      "Bash(grep:*)",
+      "Bash(xargs:*)",
+      "Bash(date:*)"
+    ],
+    "deny": [
+      "Bash(git commit*Co-Authored-By*)",
+      "Bash(git commit*co-authored-by*)",
+      "Bash(git push --force *)",
+      "Bash(git push --force)",
+      "Bash(git push * --force *)",
+      "Bash(git push * --force)",
+      "Bash(rm -rf *)"
+    ]
+  },
+  "model": "opus[1m]",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "signet-eval eval",
+            "timeout": 10,
+            "statusMessage": "Policy check..."
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/pre-commit-format.sh",
+            "timeout": 30,
+            "statusMessage": "Formatting staged files..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/post-edit-biome.sh",
+            "timeout": 15,
+            "statusMessage": "Running Biome lint...",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/pre-compact.sh",
+            "statusMessage": "Preserving session context..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/on-stop.sh",
+            "timeout": 10,
+            "statusMessage": "Checking for uncommitted changes..."
+          }
+        ]
+      }
+    ]
+  },
+  "worktree": {
+    "symlinkDirectories": [
+      "node_modules",
+      ".next",
+      ".expo",
+      ".turbo",
+      "dist",
+      ".yarn/cache"
+    ]
+  },
+  "enabledPlugins": {
+    "code-review@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "hookify@claude-plugins-official": true
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "showClearContextOnPlanAccept": true,
+  "autoMode": {
+    "allow": [
+      "Reading any file in the project",
+      "Searching and grepping code",
+      "Running type-check, lint, and test commands",
+      "Running build commands",
+      "Running codegen commands",
+      "Installing dependencies with pnpm/yarn",
+      "All kindex operations",
+      "All serena operations",
+      "All read-only git operations",
+      "Creating and switching git branches",
+      "Staging files and creating commits",
+      "Reading Slack, GitHub, Linear, and Figma"
+    ],
+    "soft_deny": [
+      "Pushing code to any remote repository",
+      "Creating, closing, or commenting on pull requests or issues",
+      "Sending messages to Slack, email, or any external communication service",
+      "Deleting files, branches, or any persistent resources",
+      "Modifying CI/CD pipelines or deployment configs",
+      "Running database migrations or destructive database operations",
+      "Modifying environment variables or secrets in Doppler",
+      "Force-pushing or rewriting git history",
+      "Installing new dependencies or upgrading major versions",
+      "Creating or modifying Linear issues"
+    ],
+    "environment": [
+      "macOS development machine",
+      "Multi-project workspace: wander.com (Next.js), os.wander.com (Next.js), wander (Node backend), mobile (React Native/Expo)",
+      "Package managers: pnpm for frontends, yarn for backend and mobile",
+      "Biome for linting/formatting, Prisma for DB, Doppler for env vars",
+      "Conductor for multi-agent orchestration"
+    ]
+  }
+}
