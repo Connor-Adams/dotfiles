@@ -18,10 +18,18 @@ If a design system component exists for your use case, you must use it. Only bui
 
 Conductor manages parallel Claude Code sessions via isolated git worktrees. Linear integration is active — issues are auto-injected as context when creating workspaces.
 
+### Worktree directory (REQUIRED — overrides superpowers default)
+**ALL worktrees MUST be created under `~/conductor/workspaces/<repo>/<city>/`.** Never use `<repo>/.worktrees/`, `~/.config/superpowers/worktrees/`, or any other location. This is the single source of truth for worktree management.
+
+When creating a new worktree:
+1. Pick a unique city name (check `~/conductor/workspaces/<repo>/` and `~/conductor/archived-contexts/<repo>/` to avoid reuse)
+2. Create at: `~/conductor/workspaces/<repo>/<city>/`
+3. Branch naming: `feature/<ticket-id-lowercase>-<short-description>`
+
 ### Conversational ticket/branch access
 When Connor mentions a Linear ticket (e.g., "WEB-668", "MOB-330", "DES-351"), assume he wants to work with the Conductor workspace for that ticket. Default behavior:
 
-1. **Find the worktree**: Look in `~/conductor/workspaces/<repo>/<city>/` or `~/Developer/Work/<repo>/.worktrees/` for a branch matching `feature/<ticket-id-lowercase>-*` (e.g., `feature/web-668-*`).
+1. **Find the worktree**: Look in `~/conductor/workspaces/<repo>/<city>/` for a branch matching `feature/<ticket-id-lowercase>-*` (e.g., `feature/web-668-*`).
 2. **Pull in context**: Fetch the Linear issue details (`get_issue` with ticket ID), read the diff against the base branch, and skim changed files — so you can talk about it conversationally.
 3. **Branch naming convention**: Branches are `feature/<ticket-id>-<short-description>`. Ticket IDs in branch names are lowercase (e.g., `web-668` not `WEB-668`).
 4. **Repo mapping**: Ticket prefixes map to repos:

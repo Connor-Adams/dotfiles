@@ -43,4 +43,3 @@ complete -o nospace -C /opt/homebrew/bin/terraform terraform
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/connoradams/.lmstudio/bin"
 # End of LM Studio CLI section
-
