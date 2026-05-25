@@ -240,9 +240,10 @@ def _attrs_to_dict(attrs: list[dict]) -> dict[str, str]:
 
 def build_loki_correlation_url(trace_id: str) -> str:
     base = os.environ.get("GRAFANA_BASE_URL", "")
-    if not base or not trace_id:
+    service = os.environ.get("LOKI_SERVICE_NAME", "")
+    if not base or not trace_id or not service:
         return ""
-    logql = f'{{service_name="wander/api"}} |= "{trace_id}"'
+    logql = f'{{service_name="{service}"}} |= "{trace_id}"'
     payload = {
         "datasource": "loki",
         "queries": [{

@@ -199,8 +199,8 @@
     ],
     "environment": [
       "macOS development machine",
-      "Multi-project workspace: wander.com (Next.js), os.wander.com (Next.js), wander (Node backend), mobile (React Native/Expo)",
-      "Package managers: pnpm for frontends, yarn for backend and mobile",
+      "Multi-project workspace across Next.js, Node backend, and React Native/Expo repos",
+      "Package managers vary per repo (pnpm/yarn/npm) — check the lockfile",
       "Biome for linting/formatting, Prisma for DB, Doppler for env vars",
       "Conductor for multi-agent orchestration"
     ]

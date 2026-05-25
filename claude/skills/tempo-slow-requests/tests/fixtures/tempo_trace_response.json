@@ -6,7 +6,7 @@
           {
             "key": "service.name",
             "value": {
-              "stringValue": "wander/api"
+              "stringValue": "myservice/api"
             }
           }
         ]
@@ -94,7 +94,7 @@
           {
             "key": "service.name",
             "value": {
-              "stringValue": "wander/api"
+              "stringValue": "myservice/api"
             }
           }
         ]
@@ -1149,7 +1149,7 @@
           {
             "key": "service.name",
             "value": {
-              "stringValue": "wander/api"
+              "stringValue": "myservice/api"
             }
           }
         ]

@@ -15,7 +15,7 @@ Matches the OTLP-shaped JSON envelope returned by Tempo's `/api/traces/{traceID}
 (via the Grafana datasource proxy at `/api/datasources/proxy/uid/tempo/api/traces/{id}`).
 
 Structure:
-- **Batch 1** — root span: `GET /api/properties/:id/availability`, 4820ms (service: `wander/api`)
+- **Batch 1** — root span: `GET /api/properties/:id/availability`, 4820ms (service: `myservice/api`)
   - Also contains 2 unique redis spans (count < 3, won't form repeat groups)
 - **Batch 2** — 47 `prisma.unit.findUnique` child spans, sequential, total ~3186ms
   - Classified as `n_plus_one_suspect` by `compute_repeat_groups`

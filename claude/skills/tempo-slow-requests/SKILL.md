@@ -13,7 +13,7 @@ Two operations exposed via the implementation script `tempo_slow_requests.py`:
 ## Usage
 
 ```bash
-python3 tempo_slow_requests.py rank --service wander/api --window 24h --top 6
+python3 tempo_slow_requests.py rank --service myservice/api --window 24h --top 6
 python3 tempo_slow_requests.py trace --id <trace-id>
 ```
 

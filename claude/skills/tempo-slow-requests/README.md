@@ -8,7 +8,8 @@ Python 3 standard library only — `urllib.request`, `json`, `argparse`, `unitte
 
 ## Required env vars
 
-- `GRAFANA_BASE_URL` — e.g. `https://grafana.wander.com`
+- `GRAFANA_BASE_URL` — e.g. `https://grafana.example.com`
+- `LOKI_SERVICE_NAME` — optional; if set, traces returned by `trace` include a Loki correlation URL scoped to `{service_name="<value>"}`
 - `GRAFANA_SA_TOKEN` — service-account token with `Datasources:Read`
 
 ## Operations
