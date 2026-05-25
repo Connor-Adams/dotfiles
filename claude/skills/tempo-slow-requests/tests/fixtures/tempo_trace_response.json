@@ -1,0 +1,1336 @@
+{
+  "batches": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "wander/api"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "@opentelemetry/instrumentation-fastify"
+          },
+          "spans": [
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "1111000000000001",
+              "parentSpanId": "",
+              "name": "GET /api/properties/:id/availability",
+              "startTimeUnixNano": "1714694400000000000",
+              "endTimeUnixNano": "1714694404820000000",
+              "attributes": [
+                {
+                  "key": "http.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "http.route",
+                  "value": {
+                    "stringValue": "/api/properties/:id/availability"
+                  }
+                },
+                {
+                  "key": "http.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "scope": {
+            "name": "@opentelemetry/instrumentation-redis"
+          },
+          "spans": [
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "4444000000000001",
+              "parentSpanId": "1111000000000001",
+              "name": "redis.get availability:property:42",
+              "startTimeUnixNano": "1714694400050000000",
+              "endTimeUnixNano": "1714694400052000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "redis"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "4444000000000002",
+              "parentSpanId": "1111000000000001",
+              "name": "redis.set availability:property:42",
+              "startTimeUnixNano": "1714694404750000000",
+              "endTimeUnixNano": "1714694404752000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "redis"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "wander/api"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "@prisma/instrumentation"
+          },
+          "spans": [
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000000",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694400100000000",
+              "endTimeUnixNano": "1714694400162000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000001",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694400162000000",
+              "endTimeUnixNano": "1714694400226000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000002",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694400226000000",
+              "endTimeUnixNano": "1714694400292000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Booking\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000003",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694400292000000",
+              "endTimeUnixNano": "1714694400360000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000004",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694400360000000",
+              "endTimeUnixNano": "1714694400430000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000005",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694400430000000",
+              "endTimeUnixNano": "1714694400502000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Booking\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000006",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694400502000000",
+              "endTimeUnixNano": "1714694400576000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000007",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694400576000000",
+              "endTimeUnixNano": "1714694400638000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000008",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694400638000000",
+              "endTimeUnixNano": "1714694400702000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Booking\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000009",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694400702000000",
+              "endTimeUnixNano": "1714694400768000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000010",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694400768000000",
+              "endTimeUnixNano": "1714694400836000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000011",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694400836000000",
+              "endTimeUnixNano": "1714694400906000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Booking\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000012",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694400906000000",
+              "endTimeUnixNano": "1714694400978000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000013",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694400978000000",
+              "endTimeUnixNano": "1714694401052000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000014",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694401052000000",
+              "endTimeUnixNano": "1714694401114000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Booking\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000015",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694401114000000",
+              "endTimeUnixNano": "1714694401178000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000016",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694401178000000",
+              "endTimeUnixNano": "1714694401244000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000017",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694401244000000",
+              "endTimeUnixNano": "1714694401312000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Booking\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000018",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694401312000000",
+              "endTimeUnixNano": "1714694401382000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000019",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694401382000000",
+              "endTimeUnixNano": "1714694401454000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000020",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694401454000000",
+              "endTimeUnixNano": "1714694401528000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Booking\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000021",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694401528000000",
+              "endTimeUnixNano": "1714694401590000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000022",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694401590000000",
+              "endTimeUnixNano": "1714694401654000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000023",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694401654000000",
+              "endTimeUnixNano": "1714694401720000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Booking\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000024",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694401720000000",
+              "endTimeUnixNano": "1714694401788000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000025",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694401788000000",
+              "endTimeUnixNano": "1714694401858000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000026",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694401858000000",
+              "endTimeUnixNano": "1714694401930000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Booking\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000027",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694401930000000",
+              "endTimeUnixNano": "1714694402004000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000028",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694402004000000",
+              "endTimeUnixNano": "1714694402066000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000029",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694402066000000",
+              "endTimeUnixNano": "1714694402130000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Booking\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000030",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694402130000000",
+              "endTimeUnixNano": "1714694402196000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000031",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694402196000000",
+              "endTimeUnixNano": "1714694402264000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000032",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694402264000000",
+              "endTimeUnixNano": "1714694402334000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Booking\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000033",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694402334000000",
+              "endTimeUnixNano": "1714694402406000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000034",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694402406000000",
+              "endTimeUnixNano": "1714694402480000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000035",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694402480000000",
+              "endTimeUnixNano": "1714694402542000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Booking\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000036",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694402542000000",
+              "endTimeUnixNano": "1714694402606000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000037",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694402606000000",
+              "endTimeUnixNano": "1714694402672000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000038",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694402672000000",
+              "endTimeUnixNano": "1714694402740000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Booking\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000039",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694402740000000",
+              "endTimeUnixNano": "1714694402810000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000040",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694402810000000",
+              "endTimeUnixNano": "1714694402882000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000041",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694402882000000",
+              "endTimeUnixNano": "1714694402956000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Booking\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000042",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694402956000000",
+              "endTimeUnixNano": "1714694403018000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000043",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694403018000000",
+              "endTimeUnixNano": "1714694403082000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000044",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694403082000000",
+              "endTimeUnixNano": "1714694403148000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Booking\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000045",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694403148000000",
+              "endTimeUnixNano": "1714694403216000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"AvailabilityDay\" WHERE id = $1"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "2222000000000046",
+              "parentSpanId": "1111000000000001",
+              "name": "prisma.unit.findUnique",
+              "startTimeUnixNano": "1714694403216000000",
+              "endTimeUnixNano": "1714694403286000000",
+              "attributes": [
+                {
+                  "key": "db.system",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                },
+                {
+                  "key": "db.statement",
+                  "value": {
+                    "stringValue": "SELECT * FROM \"Property\" WHERE id = $1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "wander/api"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "@opentelemetry/instrumentation-undici"
+          },
+          "spans": [
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "3333000000000000",
+              "parentSpanId": "1111000000000001",
+              "name": "http.client GET hostaway.com/listings/a1b2c3d4-0001-4000-8000-000000000001/calendar",
+              "startTimeUnixNano": "1714694403336000000",
+              "endTimeUnixNano": "1714694403491000000",
+              "attributes": [
+                {
+                  "key": "http.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "http.url",
+                  "value": {
+                    "stringValue": "https://api.hostaway.com/listings/a1b2c3d4-0001-4000-8000-000000000001/calendar"
+                  }
+                },
+                {
+                  "key": "http.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "3333000000000001",
+              "parentSpanId": "1111000000000001",
+              "name": "http.client GET hostaway.com/listings/a1b2c3d4-0002-4000-8000-000000000002/calendar",
+              "startTimeUnixNano": "1714694403491000000",
+              "endTimeUnixNano": "1714694403656000000",
+              "attributes": [
+                {
+                  "key": "http.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "http.url",
+                  "value": {
+                    "stringValue": "https://api.hostaway.com/listings/a1b2c3d4-0002-4000-8000-000000000002/calendar"
+                  }
+                },
+                {
+                  "key": "http.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "3333000000000002",
+              "parentSpanId": "1111000000000001",
+              "name": "http.client GET hostaway.com/listings/a1b2c3d4-0003-4000-8000-000000000003/calendar",
+              "startTimeUnixNano": "1714694403656000000",
+              "endTimeUnixNano": "1714694403831000000",
+              "attributes": [
+                {
+                  "key": "http.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "http.url",
+                  "value": {
+                    "stringValue": "https://api.hostaway.com/listings/a1b2c3d4-0003-4000-8000-000000000003/calendar"
+                  }
+                },
+                {
+                  "key": "http.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "3333000000000003",
+              "parentSpanId": "1111000000000001",
+              "name": "http.client GET hostaway.com/listings/a1b2c3d4-0004-4000-8000-000000000004/calendar",
+              "startTimeUnixNano": "1714694403831000000",
+              "endTimeUnixNano": "1714694404016000000",
+              "attributes": [
+                {
+                  "key": "http.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "http.url",
+                  "value": {
+                    "stringValue": "https://api.hostaway.com/listings/a1b2c3d4-0004-4000-8000-000000000004/calendar"
+                  }
+                },
+                {
+                  "key": "http.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "3333000000000004",
+              "parentSpanId": "1111000000000001",
+              "name": "http.client GET hostaway.com/listings/a1b2c3d4-0005-4000-8000-000000000005/calendar",
+              "startTimeUnixNano": "1714694404016000000",
+              "endTimeUnixNano": "1714694404171000000",
+              "attributes": [
+                {
+                  "key": "http.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "http.url",
+                  "value": {
+                    "stringValue": "https://api.hostaway.com/listings/a1b2c3d4-0005-4000-8000-000000000005/calendar"
+                  }
+                },
+                {
+                  "key": "http.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "9f0a3d4e12345678abcdef0123456789",
+              "spanId": "3333000000000005",
+              "parentSpanId": "1111000000000001",
+              "name": "http.client GET hostaway.com/listings/a1b2c3d4-0006-4000-8000-000000000006/calendar",
+              "startTimeUnixNano": "1714694404171000000",
+              "endTimeUnixNano": "1714694404336000000",
+              "attributes": [
+                {
+                  "key": "http.method",
+                  "value": {
+                    "stringValue": "GET"
+                  }
+                },
+                {
+                  "key": "http.url",
+                  "value": {
+                    "stringValue": "https://api.hostaway.com/listings/a1b2c3d4-0006-4000-8000-000000000006/calendar"
+                  }
+                },
+                {
+                  "key": "http.status_code",
+                  "value": {
+                    "intValue": "200"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

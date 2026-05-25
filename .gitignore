@@ -5,3 +5,6 @@ zsh/conf.d/90-local.zsh
 # Claude local/secret config (not portable)
 claude/mcp.json
 claude/settings.local.json
+# Python bytecode (some skills are Python)
+__pycache__/
+*.pyc
