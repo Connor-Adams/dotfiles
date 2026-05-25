@@ -2,69 +2,9 @@
 
 NEVER add a `Co-Authored-By` line to any commit message. Connor must be the sole author on all commits. Do not append any co-author trailers, attribution lines, or similar metadata.
 
-## UI & Design System (REQUIRED)
+## PR Merges (REQUIRED)
 
-When building or modifying any UI, you MUST use components from the Wander Design System. Before creating custom components, check what exists:
-
-- **Reference**: https://wander-ds.vercel.app/llms.txt (overview) and `/llm/[slug]` endpoints for component details
-- **Packages**: `@wandercom/design-system-tokens`, `@wandercom/design-system-fonts`, `@wandercom/design-system-shared`, `@wandercom/design-system-web`
-- **Imports**: `import { ComponentName } from "@wandercom/design-system-web"` or from the blocks directory
-- **Utilities**: Use the shared `cn` utility for className merging — do not create custom solutions
-- **Tokens**: Use existing design tokens. Do NOT invent new token names or component names; use what exists or suggest an extension.
-
-If a design system component exists for your use case, you must use it. Only build custom UI when no suitable component exists.
-
-## Conductor Workflow (REQUIRED)
-
-Conductor manages parallel Claude Code sessions via isolated git worktrees. Linear integration is active — issues are auto-injected as context when creating workspaces.
-
-### Worktree directory (REQUIRED — overrides superpowers default)
-**ALL worktrees MUST be created under `~/conductor/workspaces/<repo>/<city>/`.** Never use `<repo>/.worktrees/`, `~/.config/superpowers/worktrees/`, or any other location. This is the single source of truth for worktree management.
-
-When creating a new worktree:
-1. Pick a unique city name (check `~/conductor/workspaces/<repo>/` and `~/conductor/archived-contexts/<repo>/` to avoid reuse)
-2. Create at: `~/conductor/workspaces/<repo>/<city>/`
-3. Branch naming: `feature/<ticket-id-lowercase>-<short-description>`
-
-### Conversational ticket/branch access
-When Connor mentions a Linear ticket (e.g., "WEB-668", "MOB-330", "DES-351"), assume he wants to work with the Conductor workspace for that ticket. Default behavior:
-
-1. **Find the worktree**: Look in `~/conductor/workspaces/<repo>/<city>/` for a branch matching `feature/<ticket-id-lowercase>-*` (e.g., `feature/web-668-*`).
-2. **Pull in context**: Fetch the Linear issue details (`get_issue` with ticket ID), read the diff against the base branch, and skim changed files — so you can talk about it conversationally.
-3. **Branch naming convention**: Branches are `feature/<ticket-id>-<short-description>`. Ticket IDs in branch names are lowercase (e.g., `web-668` not `WEB-668`).
-4. **Repo mapping**: Ticket prefixes map to repos:
-   - `WEB-*`, `GUES-*`, `DES-*` → could be `wander.com` or `wander` (check both)
-   - `MOB-*` → `mobile`
-   - `INT-*`, `OPER-*` → `wander` (backend)
-   - `WOS-*` → `os.wander.com` or `wander`
-5. **Review/feedback**: When Connor asks about a ticket's code, default to reviewing the worktree diff, not just describing the issue. He wants to see and discuss the actual implementation.
-
-### Constrain-first discipline
-Every new problem MUST start with a Constrain session before planning or coding. No exceptions.
-
-1. **Constrain session**: Articulate the problem before solving it
-   - Run Constrain's three-phase interview (understand → challenge → synthesize)
-   - Output: `prompt.md` (induced-understanding briefing) and `constraints.yaml` (boundary conditions)
-   - Search prior Constrain sessions (`constrain_search_sessions`) to avoid re-solving known problems
-   - Capture key decisions and constraints to kindex after the session completes
-2. **Plan session**: One Claude session breaks the feature into independent tasks
-   - Feed Constrain's `prompt.md` and `constraints.yaml` as input to the planner
-   - Use `superpowers:writing-plans` to produce a structured plan
-   - Each task must be independently mergeable (no cross-task dependencies)
-   - Output: numbered task list with branch names and acceptance criteria
-3. **Execute sessions**: One Conductor workspace per task
-   - Each agent gets the plan + its specific task number
-   - Agents `search` kindex at start for relevant prior context
-   - Agents capture discoveries to kindex as they go (with links!)
-4. **Review session**: Fresh workspace on the result branch
-   - Agent was NOT involved in writing the code — fresh context avoids bias
-   - Use `pr-review-toolkit` for structured review
-
-### Linear issue quality
-Every Linear issue assigned to a Conductor workspace should have:
-- A one-line goal
-- Acceptance criteria as a checklist
-- Links to relevant files, PRs, or prior issues
+When merging PRs, default to **auto-merge with a merge commit** (`gh pr merge --auto --merge`). Do NOT squash. If the repo has `allow_auto_merge=false`, enable it first (`gh api -X PATCH repos/<owner>/<repo> -f allow_auto_merge=true`). If the repo lacks branch protection so `--auto` merges immediately, that's fine — Connor accepts the trade-off.
 
 ## Kindex (REQUIRED -- follow these in every session)
 
