@@ -34,7 +34,21 @@
       "Bash(pwd:*)",
       "Bash(grep:*)",
       "Bash(xargs:*)",
-      "Bash(date:*)"
+      "Bash(date:*)",
+      "Bash(wcli:*)",
+      "Bash(du:*)",
+      "Bash(df:*)",
+      "Bash(mv:*)",
+      "Bash(mkdir:*)",
+      "Bash(pgrep:*)",
+      "Bash(pkill:*)",
+      "Bash(osascript:*)",
+      "Bash(brew:*)",
+      "Bash(xcrun:*)",
+      "Bash(mdls:*)",
+      "Bash(defaults read:*)",
+      "Bash(mount:*)",
+      "Bash(tmutil:*)"
     ],
     "deny": [
       "Bash(git commit*Co-Authored-By*)",
@@ -42,12 +56,10 @@
       "Bash(git push --force *)",
       "Bash(git push --force)",
       "Bash(git push * --force *)",
-      "Bash(git push * --force)",
-      "Bash(rm -rf *)"
+      "Bash(git push * --force)"
     ]
   },
   "model": "opus[1m]",
-  "effortLevel": "high",
   "hooks": {
     "PreToolUse": [
       {
@@ -142,10 +154,22 @@
     "typescript-lsp@claude-plugins-official": true,
     "pr-review-toolkit@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
-    "hookify@claude-plugins-official": true
+    "hookify@claude-plugins-official": true,
+    "caveman@caveman": true
   },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    }
+  },
+  "effortLevel": "xhigh",
   "showClearContextOnPlanAccept": true,
   "skipDangerousModePermissionPrompt": true,
+  "theme": "dark",
+  "agentPushNotifEnabled": true,
   "autoMode": {
     "allow": [
       "Reading any file in the project",
@@ -180,6 +204,5 @@
       "Biome for linting/formatting, Prisma for DB, Doppler for env vars",
       "Conductor for multi-agent orchestration"
     ]
-  },
-  "agentPushNotifEnabled": true
+  }
 }
