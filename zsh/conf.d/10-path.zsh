@@ -5,6 +5,11 @@ path_add_back()  { local p="$1"; [[ -d "$p" ]] && path=($path "$p") }
 # User bins
 path_add_front "$HOME/bin"
 path_add_front "$HOME/.local/bin"
+path_add_front "$HOME/.cargo/bin"
+
+# Source rustup's env file too (sets up cargo + rustc dirs the same way
+# rustup-init would if we hadn't passed --no-modify-path in bootstrap.sh).
+[[ -r "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 # Homebrew (Apple Silicon default at /opt/homebrew)
 if command -v brew >/dev/null 2>&1; then
