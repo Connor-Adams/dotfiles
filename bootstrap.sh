@@ -74,21 +74,38 @@ fi
 log "uv: $(command -v uv)"
 
 log "Installing MCP backends via uv (kindex, constrain)..."
-uv tool install "kindex[mcp]" 2>/dev/null || uv tool upgrade kindex || true
-uv tool install "constrain[mcp]" 2>/dev/null || uv tool upgrade constrain || true
+# kindex: public PyPI package (author: jmcentire).
+# constrain: PRIVATE GitHub repo (jmcentire/constrain) — install needs gh auth
+#            wired up first (run `gh auth login` if it errors with 401/403).
+#            The PyPI package named "constrain" is a different, unrelated tool.
+# --force makes both calls idempotent (reinstalls in-place if already present).
+uv tool install --force "kindex[mcp]" \
+  || warn "uv tool install kindex[mcp] failed"
+uv tool install --force \
+  "constrain[mcp] @ git+https://github.com/jmcentire/constrain.git" \
+  || warn "constrain install failed (need 'gh auth login'? private repo)"
 
 # ---- 9. Register MCP servers with Claude Code ----
+register_mcp_stdio() {
+  local name="$1"; local binary="$2"
+  if ! command -v "$binary" >/dev/null 2>&1; then
+    warn "$binary not in PATH; skipping '$name' MCP registration"
+    return
+  fi
+  claude mcp remove "$name" -s user >/dev/null 2>&1 || true
+  claude mcp add    -s user "$name" -- "$binary"
+}
+
 if command -v claude >/dev/null 2>&1; then
-  log "Registering MCP servers (idempotent: removing then adding at user scope)..."
-  for srv in kindex constrain serena; do
-    claude mcp remove "$srv" -s user >/dev/null 2>&1 || true
-  done
-  claude mcp add -s user kindex -- kin-mcp
-  claude mcp add -s user constrain -- constrain-mcp
-  claude mcp add -s user serena -- uvx --from git+https://github.com/oraios/serena \
+  log "Registering MCP servers at user scope..."
+  register_mcp_stdio kindex kin-mcp
+  register_mcp_stdio constrain constrain-mcp
+  # serena: no separate install — uvx fetches on first run.
+  claude mcp remove serena -s user >/dev/null 2>&1 || true
+  claude mcp add    -s user serena -- uvx --from git+https://github.com/oraios/serena \
     serena start-mcp-server --context ide-assistant --open-web-dashboard False
 else
-  warn "claude CLI not found; install Claude Code, then re-run bootstrap.sh to register MCPs."
+  warn "claude CLI not found; install Claude Code, then re-run bootstrap.sh."
 fi
 
 # ---- 10. Next steps ----
@@ -106,4 +123,7 @@ Manual steps remaining:
      configurator automatically. Otherwise run `p10k configure` to tune.
   5. Sign in to GitHub CLI:
        gh auth login
+     (Required BEFORE constrain installs cleanly — it pulls from a private
+     repo. If bootstrap warned about constrain failing, re-run bootstrap.sh
+     after gh auth is set up.)
 EOF
