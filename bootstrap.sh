@@ -3,11 +3,22 @@ set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Prepend ~/.local/bin to PATH up front. Required because bootstrap runs in
-# bash (not zsh), so it doesn't auto-source our zshrc's PATH wiring. Without
-# this, `command -v claude` / `command -v uv` would return false on re-runs
-# even when the binaries are already installed at ~/.local/bin/.
-export PATH="$HOME/.local/bin:$PATH"
+# Prepend ~/.local/bin and ~/.cargo/bin to PATH up front. Required because
+# bootstrap runs in bash (not zsh), so it doesn't auto-source our zshrc's
+# PATH wiring. Without this, `command -v claude` / `command -v uv` /
+# `command -v cargo` would return false on re-runs even when the binaries
+# are already installed.
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+
+# Source machine-local secrets/env files (gitignored). Used to pull in env
+# vars like CARGO_TOOLS without baking package names into the public repo.
+SECRETS_DIR="$HOME/.config/secrets"
+if [ -d "$SECRETS_DIR" ]; then
+  for f in "$SECRETS_DIR"/*.env; do
+    # shellcheck disable=SC1090
+    [ -r "$f" ] && . "$f"
+  done
+fi
 
 log()   { printf "\033[1;32m==>\033[0m %s\n" "$*"; }
 ok()    { printf "\033[1;36m✓\033[0m  %s\n" "$*"; }
@@ -77,6 +88,35 @@ if ! command -v uv >/dev/null 2>&1; then
   curl -LsSf https://astral.sh/uv/install.sh | sh
 else
   ok "uv already installed ($(uv --version 2>/dev/null))"
+fi
+
+# ---- 8b. Rust toolchain + cargo-installed tools ----
+# Rust is needed for the Claude Code PreToolUse policy-check hook binary
+# (see claude/settings.json). The specific cargo package name is kept out
+# of this public repo; set CARGO_TOOLS in a gitignored secrets file like:
+#   ~/.config/secrets/cargo.env
+# containing e.g.:
+#   export CARGO_TOOLS="pkg-a pkg-b"
+if ! command -v cargo >/dev/null 2>&1; then
+  log "Installing Rust toolchain (rustup)..."
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+    | sh -s -- -y --default-toolchain stable --no-modify-path
+else
+  ok "cargo already installed ($(cargo --version 2>/dev/null))"
+fi
+
+CARGO_TOOLS="${CARGO_TOOLS:-}"
+if [ -n "$CARGO_TOOLS" ] && command -v cargo >/dev/null 2>&1; then
+  for tool in $CARGO_TOOLS; do
+    if cargo install --list 2>/dev/null | grep -qE "^${tool} v"; then
+      ok "$tool already installed via cargo"
+    else
+      log "Installing $tool via cargo..."
+      cargo install "$tool" || warn "cargo install $tool failed"
+    fi
+  done
+elif [ -z "$CARGO_TOOLS" ]; then
+  ok "CARGO_TOOLS unset; skipping cargo packages"
 fi
 
 # ---- 9. MCP backends via uv ----
@@ -155,6 +195,12 @@ if ! gh auth status >/dev/null 2>&1; then
   if ! uv tool list 2>/dev/null | grep -qE '^constrain '; then
     todo+=("       (constrain pulls from a private repo and needs gh auth before it can install)")
   fi
+fi
+
+# Cargo tools env var (PreToolUse policy hook, etc.)
+if [ -z "${CARGO_TOOLS:-}" ] && command -v cargo >/dev/null 2>&1; then
+  todo+=("$((n++)). Set CARGO_TOOLS in ~/.config/secrets/cargo.env, then re-run bootstrap.sh")
+  todo+=("       (cargo packages used by Claude Code hooks aren't named in this public repo)")
 fi
 
 # Always-useful tips that depend on first-run state

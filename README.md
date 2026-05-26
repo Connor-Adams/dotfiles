@@ -37,6 +37,24 @@ cd ~/.dotfiles
 
 Follow the manual steps printed at the end (`chsh`, iTerm2 font, `gh auth login`).
 
+#### Machine-local secrets
+
+Some bootstrap behavior is driven by env vars that intentionally are NOT in
+this public repo (private repo names, token-bearing URLs, cargo packages
+referenced by hooks, etc.). Put them in `~/.config/secrets/*.env`:
+
+```bash
+mkdir -p ~/.config/secrets
+cat > ~/.config/secrets/cargo.env <<'EOF'
+# Space-separated cargo packages to install via `cargo install`.
+export CARGO_TOOLS="pkg-a pkg-b"
+EOF
+```
+
+`bootstrap.sh` sources every `*.env` in that directory before running its
+install steps; `zsh/conf.d/90-local.zsh` does the same for interactive
+shells.
+
 ### Already-bootstrapped machine
 
 ```bash
