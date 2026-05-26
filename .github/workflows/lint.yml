@@ -1,0 +1,71 @@
+name: lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  shellcheck:
+    name: shellcheck (bash)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+      - name: Lint bash scripts
+        run: |
+          shellcheck --severity=warning --shell=bash \
+            bootstrap.sh \
+            install.sh
+
+  zsh-syntax:
+    name: zsh syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install zsh
+        run: sudo apt-get update && sudo apt-get install -y zsh
+      - name: Syntax check zsh files
+        run: |
+          set -e
+          for f in zsh/zshrc zsh/conf.d/*.zsh; do
+            echo "checking $f"
+            zsh -n "$f"
+          done
+
+  manifest:
+    name: manifest source paths exist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate manifest.txt
+        run: |
+          set -e
+          missing=0
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            case "$line" in \#*) continue ;; esac
+            src=$(echo "$line" | awk '{print $1}')
+            dst=$(echo "$line" | awk '{print $2}')
+            if [ -z "$src" ] || [ -z "$dst" ]; then
+              echo "::error::malformed line: $line"
+              missing=1
+              continue
+            fi
+            if [ ! -e "$src" ]; then
+              echo "::error::manifest source missing: $src (target $dst)"
+              missing=1
+            else
+              echo "ok: $src -> $dst"
+            fi
+          done < manifest.txt
+          exit "$missing"
+
+  brewfile:
+    name: Brewfile parse
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: brew bundle list
+        run: brew bundle list --file=Brewfile

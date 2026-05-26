@@ -1,4 +1,5 @@
 zsh/zshrc                      ~/.zshrc
+zsh/p10k.zsh                   ~/.p10k.zsh
 zsh/conf.d                     ~/.config/zsh/conf.d
 git/gitconfig                  ~/.gitconfig
 git/gitignore_global           ~/.gitignore_global
