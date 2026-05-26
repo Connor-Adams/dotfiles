@@ -15,5 +15,5 @@ brew "hashicorp/tap/terraform"
 # === Casks (GUI) ===
 cask "iterm2"
 cask "google-chrome"
-cask "tailscale"
+cask "tailscale-app"             # cask was renamed from "tailscale" upstream
 cask "font-meslo-lg-nerd-font"   # font for powerlevel10k
