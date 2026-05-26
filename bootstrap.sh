@@ -56,19 +56,28 @@ log "powerlevel10k: $P10K_DIR"
 log "Linking dotfiles via install.sh..."
 "$DOTFILES_DIR/install.sh"
 
-# ---- 7. uv + MCP tools ----
+# ---- 7. Claude Code CLI (native installer) ----
+# Lands at ~/.local/bin/claude with versions under ~/.local/share/claude/versions/.
+# Idempotent: re-runs upgrade-in-place if already installed.
+if ! command -v claude >/dev/null 2>&1; then
+  log "Installing Claude Code CLI..."
+  curl -fsSL https://claude.ai/install.sh | bash
+fi
+export PATH="$HOME/.local/bin:$PATH"
+log "claude: $(command -v claude || echo '(install failed)')"
+
+# ---- 8. uv + MCP tools ----
 if ! command -v uv >/dev/null 2>&1; then
   log "Installing uv (Astral)..."
   curl -LsSf https://astral.sh/uv/install.sh | sh
 fi
-export PATH="$HOME/.local/bin:$PATH"
 log "uv: $(command -v uv)"
 
 log "Installing MCP backends via uv (kindex, constrain)..."
 uv tool install "kindex[mcp]" 2>/dev/null || uv tool upgrade kindex || true
 uv tool install "constrain[mcp]" 2>/dev/null || uv tool upgrade constrain || true
 
-# ---- 8. Register MCP servers with Claude Code ----
+# ---- 9. Register MCP servers with Claude Code ----
 if command -v claude >/dev/null 2>&1; then
   log "Registering MCP servers (idempotent: removing then adding at user scope)..."
   for srv in kindex constrain serena; do
@@ -82,7 +91,7 @@ else
   warn "claude CLI not found; install Claude Code, then re-run bootstrap.sh to register MCPs."
 fi
 
-# ---- 9. Next steps ----
+# ---- 10. Next steps ----
 log "Bootstrap complete."
 cat <<'EOF'
 
