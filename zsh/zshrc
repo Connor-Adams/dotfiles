@@ -1,8 +1,11 @@
-# Enable Powerlevel10k instant prompt. Keep this near the top of ~/.zshrc.
-# Anything that might prompt for input must go above this block.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# Disabled 2026-05-24: p10k instant prompt killed by macOS 26.5 codesign enforcement
+# (adhoc-signed gitstatusd -> bug_type 309). Re-enable after `p10k configure` regenerates
+# gitstatusd or after powerlevel10k upgrade ships a Developer-ID-signed binary.
+# # Enable Powerlevel10k instant prompt. Keep this near the top of ~/.zshrc.
+# # Anything that might prompt for input must go above this block.
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # ---- XDG ----
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
@@ -38,8 +41,6 @@ fi
 [[ -r "${HOME}/.iterm2_shell_integration.zsh" ]] && source "${HOME}/.iterm2_shell_integration.zsh"
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/homebrew/bin/terraform terraform
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/connoradams/.lmstudio/bin"
-# End of LM Studio CLI section
+if command -v terraform >/dev/null 2>&1; then
+  complete -o nospace -C "$(command -v terraform)" terraform
+fi

@@ -19,13 +19,34 @@ The single source of truth is `manifest.txt` — each line maps a tracked file t
 
 ## Install
 
+There are two scripts:
+
+- **`bootstrap.sh`** — first-run setup on a fresh machine. Installs Xcode CLT,
+  Homebrew, the `Brewfile`, oh-my-zsh, powerlevel10k, then delegates to
+  `install.sh`. Idempotent; safe to re-run.
+- **`install.sh`** — just creates symlinks per `manifest.txt`. Run this on
+  its own whenever the manifest changes.
+
+### Fresh machine
+
 ```bash
 git clone https://github.com/Connor-Adams/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+./bootstrap.sh
+```
+
+Follow the manual steps printed at the end (`chsh`, iTerm2 font, `gh auth login`).
+
+### Already-bootstrapped machine
+
+```bash
 cd ~/.dotfiles
 ./install.sh
 ```
 
-The installer backs up anything it's about to overwrite to `~/.dotfiles-backup/<timestamp>/`, then creates symlinks per the manifest. Re-running is safe — it skips files already linked correctly.
+The installer backs up anything it's about to overwrite to
+`~/.dotfiles-backup/<timestamp>/`, then creates symlinks per the manifest.
+Re-running is safe — it skips files already linked correctly.
 
 ## Adding a new file
 

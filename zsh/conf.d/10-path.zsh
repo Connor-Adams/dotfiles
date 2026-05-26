@@ -35,10 +35,3 @@ path_add_front "$HOME/.opencode/bin"
 # Antigravity
 path_add_front "$HOME/.antigravity/antigravity/bin"
 
-# Android SDK
-export ANDROID_HOME="$HOME/Library/Android/sdk"
-path_add_back "$ANDROID_HOME/emulator"
-path_add_back "$ANDROID_HOME/platform-tools"
-
-# Java (Zulu 17)
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home"
