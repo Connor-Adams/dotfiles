@@ -92,10 +92,9 @@ fi
 
 # ---- 8b. Rust toolchain + cargo-installed tools ----
 # Rust is needed for the Claude Code PreToolUse policy-check hook binary
-# (see claude/settings.json). The specific cargo package name is kept out
-# of this public repo; set CARGO_TOOLS in a gitignored secrets file like:
-#   ~/.config/secrets/cargo.env
-# containing e.g.:
+# (see claude/settings.json). Default cargo packages are installed below;
+# override the list per-machine by exporting CARGO_TOOLS in a gitignored
+# ~/.config/secrets/*.env file, e.g.:
 #   export CARGO_TOOLS="pkg-a pkg-b"
 if ! command -v cargo >/dev/null 2>&1; then
   log "Installing Rust toolchain (rustup)..."
@@ -105,7 +104,7 @@ else
   ok "cargo already installed ($(cargo --version 2>/dev/null))"
 fi
 
-CARGO_TOOLS="${CARGO_TOOLS:-}"
+CARGO_TOOLS="${CARGO_TOOLS:-signet-eval}"
 if [ -n "$CARGO_TOOLS" ] && command -v cargo >/dev/null 2>&1; then
   for tool in $CARGO_TOOLS; do
     if cargo install --list 2>/dev/null | grep -qE "^${tool} v"; then
@@ -195,12 +194,6 @@ if ! gh auth status >/dev/null 2>&1; then
   if ! uv tool list 2>/dev/null | grep -qE '^constrain '; then
     todo+=("       (constrain pulls from a private repo and needs gh auth before it can install)")
   fi
-fi
-
-# Cargo tools env var (PreToolUse policy hook, etc.)
-if [ -z "${CARGO_TOOLS:-}" ] && command -v cargo >/dev/null 2>&1; then
-  todo+=("$((n++)). Set CARGO_TOOLS in ~/.config/secrets/cargo.env, then re-run bootstrap.sh")
-  todo+=("       (cargo packages used by Claude Code hooks aren't named in this public repo)")
 fi
 
 # Always-useful tips that depend on first-run state
