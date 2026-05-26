@@ -57,15 +57,6 @@ log "Linking dotfiles via install.sh..."
 "$DOTFILES_DIR/install.sh"
 
 # ---- 7. uv + MCP tools ----
-# Load machine-local env (sourced normally by zsh/conf.d/90-local.zsh) so
-# MAKE_MCP_URL is available for the `claude mcp add` step below.
-SECRETS_DIR="$HOME/.config/secrets"
-if [ -d "$SECRETS_DIR" ]; then
-  for f in "$SECRETS_DIR"/*.env; do
-    [ -r "$f" ] && . "$f"
-  done
-fi
-
 if ! command -v uv >/dev/null 2>&1; then
   log "Installing uv (Astral)..."
   curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -80,19 +71,13 @@ uv tool install "constrain[mcp]" 2>/dev/null || uv tool upgrade constrain || tru
 # ---- 8. Register MCP servers with Claude Code ----
 if command -v claude >/dev/null 2>&1; then
   log "Registering MCP servers (idempotent: removing then adding at user scope)..."
-  for srv in kindex constrain serena make; do
+  for srv in kindex constrain serena; do
     claude mcp remove "$srv" -s user >/dev/null 2>&1 || true
   done
   claude mcp add -s user kindex -- kin-mcp
   claude mcp add -s user constrain -- constrain-mcp
   claude mcp add -s user serena -- uvx --from git+https://github.com/oraios/serena \
     serena start-mcp-server --context ide-assistant --open-web-dashboard False
-  if [ -n "${MAKE_MCP_URL:-}" ]; then
-    claude mcp add -s user --transport sse make "$MAKE_MCP_URL"
-  else
-    warn "MAKE_MCP_URL unset; skipping 'make' MCP."
-    warn "Put it in ~/.config/secrets/mcp.env, then re-run bootstrap.sh."
-  fi
 else
   warn "claude CLI not found; install Claude Code, then re-run bootstrap.sh to register MCPs."
 fi
@@ -112,7 +97,4 @@ Manual steps remaining:
      configurator automatically. Otherwise run `p10k configure` to tune.
   5. Sign in to GitHub CLI:
        gh auth login
-  6. MCP setup: ensure ~/.config/secrets/mcp.env exists and exports
-       export MAKE_MCP_URL="https://us2.make.com/mcp/api/v1/u/<your-uuid>/sse"
-     Then re-run bootstrap.sh to register the 'make' MCP server.
 EOF
