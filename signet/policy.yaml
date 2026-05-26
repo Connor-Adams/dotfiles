@@ -1,0 +1,78 @@
+version: 1
+rules:
+- name: protect_signet_dir
+  tool_pattern: .*
+  conditions:
+  - any_of(parameters, '.signet/', '.signet\\', '.Signet/', '.Signet\\', '.SIGNET/', '.SIGNET\\')
+  action: DENY
+  reason: 'Self-protection: .signet/ directory is protected. Refer to it as ''the policy directory'' to avoid triggering this rule.'
+  locked: true
+- name: protect_signet_binary
+  tool_pattern: .*
+  conditions:
+  - any_of(parameters, 'signet-eval', 'signet_eval', 'Signet-Eval', 'SIGNET-EVAL', 'SIGNET_EVAL')
+  action: DENY
+  reason: 'Self-protection: the permissions tool binary is protected. Refer to it as ''the permissions tool'' to avoid triggering this rule.'
+  locked: true
+- name: protect_hook_config
+  tool_pattern: .*
+  conditions:
+  - any_of(parameters, 'settings.json', 'settings.local.json')
+  action: ASK
+  reason: 'Self-protection: hook config changes require confirmation. Refer to it as ''the permissions tool'' to avoid triggering this rule.'
+  locked: true
+- name: protect_signet_symlink
+  tool_pattern: .*
+  conditions:
+  - "any_of(parameters, 'ln ', 'ln\t', 'symlink', 'mklink')"
+  - any_of(parameters, '.signet', '.Signet', '.SIGNET', 'signet-eval', 'signet_eval', 'settings.json', 'settings.local.json')
+  action: DENY
+  reason: 'Self-protection: symlink creation targeting the permissions tool is blocked.'
+  locked: true
+- name: protect_signet_process
+  tool_pattern: .*
+  conditions:
+  - or(contains_word(parameters, 'kill') || contains_word(parameters, 'pkill') || contains_word(parameters, 'killall'))
+  - contains_word(parameters, 'signet')
+  action: DENY
+  reason: 'Self-protection: cannot kill processes for the permissions tool.'
+  locked: true
+- name: block_rm
+  tool_pattern: ^Bash$
+  conditions:
+  - contains(parameters, 'rm ')
+  action: DENY
+  reason: File deletion blocked
+- name: block_co_authored_by
+  tool_pattern: ^Bash$
+  conditions:
+  - any_of(parameters, 'Co-Authored-By', 'co-authored-by', 'CO-AUTHORED-BY')
+  action: DENY
+  reason: 'Co-Authored-By lines are not allowed. Connor must be the sole author.'
+- name: block_force_push
+  tool_pattern: ^Bash$
+  conditions:
+  - any_of(parameters, 'push --force', 'push -f')
+  action: ASK
+  reason: Force push requires confirmation
+- name: block_destructive_git_main
+  tool_pattern: ^Bash$
+  conditions:
+  - any_of(parameters, 'git push', 'git reset --hard', 'git checkout --force', 'git branch -D', 'git rebase')
+  - any_of(parameters, 'main', 'master')
+  action: DENY
+  reason: 'Destructive git operation on main/master is blocked. Confirm with Connor first.'
+- name: block_destructive
+  tool_pattern: ^Bash$
+  conditions:
+  - any_of(parameters, 'mkfs', 'format ', 'dd if=')
+  action: DENY
+  reason: Destructive disk ops blocked
+- name: block_piped_exec
+  tool_pattern: ^Bash$
+  conditions:
+  - any_of(parameters, 'curl', 'wget')
+  - contains(parameters, '| sh')
+  action: DENY
+  reason: Piped remote execution blocked
+default_action: ALLOW
