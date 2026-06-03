@@ -58,8 +58,8 @@ rules:
 - name: block_destructive_git_main
   tool_pattern: ^Bash$
   conditions:
-  - any_of(parameters, 'git push', 'git reset --hard', 'git checkout --force', 'git branch -D', 'git rebase')
-  - any_of(parameters, 'main', 'master')
+  - any_of(parameters, 'git push', 'git reset --hard', 'git checkout --force', 'git branch -D', 'push --force', 'push -f')
+  - or(contains_word(parameters, 'main') || contains_word(parameters, 'master'))
   action: DENY
   reason: 'Destructive git operation on main/master is blocked. Confirm with Connor first.'
 - name: block_destructive
