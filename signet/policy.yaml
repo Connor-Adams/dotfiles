@@ -40,7 +40,7 @@ rules:
 - name: block_rm
   tool_pattern: ^Bash$
   conditions:
-  - contains(parameters, 'rm ')
+  - contains_word(parameters, 'rm')
   action: DENY
   reason: File deletion blocked
 - name: block_co_authored_by
@@ -65,7 +65,7 @@ rules:
 - name: block_destructive
   tool_pattern: ^Bash$
   conditions:
-  - any_of(parameters, 'mkfs', 'format ', 'dd if=')
+  - any_of(parameters, 'mkfs', 'dd if=', 'diskutil erase', 'diskutil reformat', 'diskutil partition', 'newfs_')
   action: DENY
   reason: Destructive disk ops blocked
 - name: block_piped_exec
