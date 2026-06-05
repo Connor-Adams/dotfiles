@@ -59,7 +59,7 @@
       "Bash(git push * --force)"
     ]
   },
-  "model": "opus[1m]",
+  "model": "claude-opus-4-8[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -166,6 +166,9 @@
     }
   },
   "effortLevel": "xhigh",
+  "enableWorkflows": true,
+  "ultracode": true,
+  "skipWorkflowUsageWarning": true,
   "showClearContextOnPlanAccept": true,
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark",
