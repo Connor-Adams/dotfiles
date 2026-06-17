@@ -9,4 +9,5 @@ claude/settings.json           ~/.claude/settings.json
 claude/hooks                   ~/.claude/hooks
 claude/commands                ~/.claude/commands
 claude/skills                  ~/.claude/skills
+agents                         ~/.agents
 signet/policy.yaml             ~/.signet/policy.yaml
