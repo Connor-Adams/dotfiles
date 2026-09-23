@@ -39,10 +39,27 @@ Follow the manual steps printed at the end (`chsh`, iTerm2 font, `gh auth login`
 
 #### Machine-local secrets / overrides
 
-`bootstrap.sh` and `zsh/conf.d/90-local.zsh` both source every `*.env` in
-`~/.config/secrets/` before running. Use that directory for per-machine
-overrides — token-bearing URLs, alternate `CARGO_TOOLS` lists, etc. The
-directory is gitignored and never committed.
+`bootstrap.sh` (bash, at bootstrap time) and `zsh/conf.d/60-secrets.zsh`
+(zsh, every interactive shell) both source every `*.env` in
+`~/.config/secrets/`. Use that directory for per-machine overrides —
+token-bearing URLs, alternate `CARGO_TOOLS` lists, API keys. The directory is
+gitignored (`**/*.env`) and never committed; only the helpers are tracked.
+
+`60-secrets.zsh` also defines two functions:
+
+| Command | Does |
+|---------|------|
+| `setkey NAME` | Prompts for a value without echoing it, writes it to `~/.config/secrets/gv.env`, and exports it into the current shell. Replaces any existing line for `NAME`. |
+| `listenv` | Prints the variable *names* defined across `~/.config/secrets/*.env`. Never prints values. |
+
+Values are stored base64-wrapped (`export NAME="$(echo <b64> | base64 -d)"`).
+That is obfuscation against casual greps and file indexers, **not** encryption —
+`env` still shows the plaintext. Never pass a secret as a CLI argument; it lands
+in `zsh_history`.
+
+The `.env` payloads themselves are moved between machines out-of-band by
+`~/Developer/setkey-move`, which copies them into `~/.config/secrets` with
+`700`/`600` permissions.
 
 ### Already-bootstrapped machine
 
